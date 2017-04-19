@@ -9,24 +9,29 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className='container'>
-          <div className='navbar'>
-            <h1>Clever Title</h1>
-              <City
-                direction='row'
-                onSubmitCity={(city) => {
-                  props.history.push({
-                    pathname:'forecast',
-                    search: '?city=' + city
-                  })
-                }}
-              />
-          </div>
-          <Route exact path='/' render={() => (
+            <Route render={function(props) {
+                return (
+                  <div className='navbar'>
+                    <h1>Clever Title</h1>
+                      <City
+                        direction='row'
+                        onSubmitCity={function(city) {
+                          props.history.push({
+                            pathname:'forecast',
+                            search: '?city=' + city
+                          })
+                        }}
+                      />
+                  </div>
+                )
+              }} />
+
+          <Route exact path='/' render={(props) => (
             <div className='home-container' style={{backgroundImage: "url('app/images/pattern.svg')"}}>
               <h1 className='header'>Enter a City</h1>
               <City
                 direction='column'
-                onSubmitCity={function (city) {
+                onSubmitCity={ (city) => {
                   props.history.push({
                     pathname:'forecast',
                     search: '?city=' + city
